@@ -2,49 +2,107 @@ import { Box, Button, Input, Text } from '@chakra-ui/react'
 import React, { useEffect, useMemo, useState } from 'react'
 
 export const App = () => {
-  const [count, setCount] = useState(0)
-  const [number, setNumber] = useState(0)
-  const numbers = [0]
+  const [expression, setExpression] = useState('0')
+  const [answer, setAnswer] = useState(0)
+  const [calc, setCalc] = useState(false)
 
-  const numberPush = (value: number) => {
-    setNumber(value)
-    numbers.push(value)
-    setCount(count + 1)
+  const display = (symbol: string) => {
+    setExpression(prev => prev + symbol)
   }
 
-  numberPush(1)
+  const calculate = () => {
+    // eslint-disable-next-line no-eval
+    setAnswer(eval(expression))
+  }
+
+  const clear = () => {
+    setCalc(false)
+    setExpression('0')
+    setAnswer(0)
+  }
+
+  console.log(calc)
 
   return (
-    <Box w="100vw" h="100vh" backgroundColor="gray.800" textAlign="center">
-      <Box pt="150px">
-        <Input color="whiteAlpha.900" fontSize="80px" w="350px" ml="auto" mr="auto" display="flex" justifyContent="flex-end" placeholder={numbers.toString()} textAlign="right" paddingTop="50px" paddingBottom="50px" mb="17px"/>
+    <Box w="100vw" h="100vh" backgroundColor="gray.800" textAlign="center" display="flex" justifyContent="center" gap="17px">
+      <Box display="flex" flexDirection="column">
+        <Box display="flex" h="auto" w="350px" mt="100px">
+          {calc
+            ? (
+              <Text
+                color="whiteAlpha.500"
+                position="absolute"
+                fontSize="35px"
+                top="195px"
+                ml="auto"
+                mr="auto"
+                w="350px"
+              >{expression}
+              </Text>
+              )
+            : <Text color="white" position="absolute" fontSize="35px" top="195px" ml="auto" mr="auto" w="350px">{expression}</Text>}
+        </Box>
+        <Box pt="150px">
+          {calc
+            ? (
+              <Box
+                border="1px"
+                borderColor="white"
+                rounded="md"
+                textColor="white"
+                fontSize="80px"
+                w="350px"
+                display="flex"
+                justifyContent="flex-end"
+                textAlign="right"
+                mb="17px"
+              >{answer}
+              </Box>
+              )
+            : (
+              <Box
+                border="1px"
+                borderColor="white"
+                rounded="md"
+                color="whiteAlpha.500"
+                fontSize="80px"
+                w="350px"
+                display="flex"
+                justifyContent="flex-end"
+                textAlign="right"
+                mb="17px"
+              >{expression}
+              </Box>
+              )}
+        </Box>
+        <Box w="350px" ml="auto" mr="auto" display="flex" flexDir="column" h="350px" justifyContent="space-between">
+          <Box display="flex" w="350px" justifyContent="space-between">
+            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('7'); setCalc(false) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">7</Text></Button>
+            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('8'); setCalc(false) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">8</Text></Button>
+            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('9'); setCalc(false) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">9</Text></Button>
+            <Button w="75px" h="75px" backgroundColor="blue.600" onClick={() => { display('*'); setCalc(false) }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">x</Text></Button>
+          </Box>
+          <Box display="flex" w="350px" justifyContent="space-between">
+            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('4'); setCalc(false) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">4</Text></Button>
+            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('5'); setCalc(false) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">5</Text></Button>
+            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('6'); setCalc(false) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">6</Text></Button>
+            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('/'); setCalc(false) }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">/</Text></Button>
+          </Box>
+          <Box display="flex" w="350px" justifyContent="space-between">
+            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('1'); setCalc(false) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">1</Text></Button>
+            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('2'); setCalc(false) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">2</Text></Button>
+            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('3'); setCalc(false) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">3</Text></Button>
+            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('-'); setCalc(false) }}><Text fontSize="70px" pb="15px" color="whiteAlpha.900">-</Text></Button>
+          </Box>
+          <Box display="flex" w="350px" justifyContent="space-between">
+            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('0'); setCalc(false) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">0</Text></Button>
+            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('.'); setCalc(false) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">.</Text></Button>
+            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { setCalc(true); calculate() }}><Text fontSize="70px" pb="15px" color="whiteAlpha.900">=</Text></Button>
+            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('+'); setCalc(false) }}><Text fontSize="70px" pb="15px" color="whiteAlpha.900">+</Text></Button>
+          </Box>
+        </Box>
       </Box>
-      <Box w="350px" ml="auto" mr="auto" display="flex" flexDir="column" h="350px" justifyContent="space-between">
-        <Box display="flex" w="350px" justifyContent="space-between">
-          <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => numbers.push(7)}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">7</Text></Button>
-          <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => numberPush(8)}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">8</Text></Button>
-          <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => numberPush(9)}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">9</Text></Button>
-          <Button w="75px" h="75px" backgroundColor="blue.600"><Text fontSize="70px" pb="20px" color="whiteAlpha.900">x</Text></Button>
-        </Box>
-        <Box display="flex" w="350px" justifyContent="space-between">
-          <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => numberPush(4)}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">4</Text></Button>
-          <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => numberPush(5)}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">5</Text></Button>
-          <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => numberPush(6)}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">6</Text></Button>
-          <Button w="75px" h="75px" backgroundColor="whiteAlpha.300"><Text fontSize="70px" pb="20px" color="whiteAlpha.900">/</Text></Button>
-        </Box>
-        <Box display="flex" w="350px" justifyContent="space-between">
-          <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => numberPush(1)}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">1</Text></Button>
-          <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => numberPush(2)}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">2</Text></Button>
-          <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => numberPush(3)}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">3</Text></Button>
-          <Button w="75px" h="75px" backgroundColor="whiteAlpha.300"><Text fontSize="70px" pb="15px" color="whiteAlpha.900">-</Text></Button>
-        </Box>
-        <Box display="flex" w="350px" justifyContent="space-between">
-          <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => numberPush(0)}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">0</Text></Button>
-          <Button w="75px" h="75px" backgroundColor="whiteAlpha.300"><Text fontSize="70px" pb="5px" color="whiteAlpha.900">.</Text></Button>
-          <Button w="75px" h="75px" backgroundColor="whiteAlpha.300"><Text fontSize="70px" pb="15px" color="whiteAlpha.900">=</Text></Button>
-          <Button w="75px" h="75px" backgroundColor="whiteAlpha.300"><Text fontSize="70px" pb="15px" color="whiteAlpha.900">+</Text></Button>
-        </Box>
-      </Box>
+      <Button mt="370px" w="74px" h="74px" backgroundColor="red" color="whiteAlpha.900" onClick={() => clear()}>Reset</Button>
     </Box>
   )
 }
