@@ -7,6 +7,7 @@ export const App = () => {
   const [calc, setCalc] = useState(false)
   let zero = ' '
   let fontSize = '80px'
+  let resetButton = '390px'
 
   const display = (symbol: string) => {
     setExpression(prev => prev + symbol)
@@ -29,12 +30,15 @@ export const App = () => {
 
   if (expression.length >= 8 || answer >= 8) {
     fontSize = '60px'
+    resetButton = '360px'
   }
   if (expression.length >= 11 || answer >= 11) {
     fontSize = '40px'
+    resetButton = '330px'
   }
   if (expression.length >= 15 || answer >= 15) {
     fontSize = '30px'
+    resetButton = '315px'
   }
   if (expression.length === 18 || answer === 18) {
     alert('Max length reached')
@@ -77,7 +81,7 @@ export const App = () => {
                 textAlign="right"
                 mb="17px"
                 paddingRight="10px"
-              >{answer.toFixed(12)}
+              >{answer.toFixed(6)}
               </Box>
               )
             : (
@@ -124,7 +128,7 @@ export const App = () => {
           </Box>
         </Box>
       </Box>
-      <Button mt="390px" w="74px" h="74px" backgroundColor="red" color="whiteAlpha.900" onClick={() => clear()}>Reset</Button>
+      <Button mt={resetButton} w="74px" h="74px" backgroundColor="red" color="whiteAlpha.900" onClick={() => clear()}>Reset</Button>
     </Box>
   )
 }
