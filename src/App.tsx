@@ -6,6 +6,7 @@ export const App = () => {
   const [answer, setAnswer] = useState(0)
   const [calc, setCalc] = useState(false)
   const [sign, setSign] = useState(false)
+  const [answerS, setAnswerS] = useState(false)
   let zero = ' '
   let fontSize = '80px'
   let resetButton = '390px'
@@ -87,7 +88,7 @@ export const App = () => {
                 display="flex"
                 justifyContent="flex-end"
                 paddingRight="10px"
-              >{expression}
+              >{answer}
               </Text>
               )}
         </Box>
@@ -128,28 +129,28 @@ export const App = () => {
         </Box>
         <Box w="350px" ml="auto" mr="auto" display="flex" flexDir="column" h="350px" justifyContent="space-between">
           <Box display="flex" w="350px" justifyContent="space-between">
-            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('7'); setCalc(false); setSign(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">7</Text></Button>
-            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('8'); setCalc(false); setSign(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">8</Text></Button>
-            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('9'); setCalc(false); setSign(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">9</Text></Button>
-            {sign ? <Button w="75px" h="75px" backgroundColor="blue.600" onClick={() => { display('*'); setCalc(false); setSign(false) }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">x</Text></Button> : <Button w="75px" h="75px" backgroundColor="blue.600" onClick={() => { display(''); setCalc(false) }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">x</Text></Button>}
+            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('7'); setCalc(false); setSign(true); setAnswerS(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">7</Text></Button>
+            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('8'); setCalc(false); setSign(true); setAnswerS(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">8</Text></Button>
+            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('9'); setCalc(false); setSign(true); setAnswerS(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">9</Text></Button>
+            {sign ? <Button w="75px" h="75px" backgroundColor="blue.600" onClick={() => { display('*'); setCalc(false); setSign(false); setAnswerS(true) }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">x</Text></Button> : <Button w="75px" h="75px" backgroundColor="blue.600" onClick={() => { display(''); setCalc(false) }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">x</Text></Button>}
           </Box>
           <Box display="flex" w="350px" justifyContent="space-between">
-            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('4'); setCalc(false); setSign(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">4</Text></Button>
-            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('5'); setCalc(false); setSign(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">5</Text></Button>
-            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('6'); setCalc(false); setSign(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">6</Text></Button>
-            {sign ? <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('/'); setCalc(false); setSign(false) }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">/</Text></Button> : <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display(''); setCalc(false) }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">/</Text></Button>}
+            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('4'); setCalc(false); setSign(true); setAnswerS(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">4</Text></Button>
+            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('5'); setCalc(false); setSign(true); setAnswerS(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">5</Text></Button>
+            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('6'); setCalc(false); setSign(true); setAnswerS(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">6</Text></Button>
+            {sign ? <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('/'); setCalc(false); setSign(false); setAnswerS(true) }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">/</Text></Button> : <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display(''); setCalc(false) }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">/</Text></Button>}
           </Box>
           <Box display="flex" w="350px" justifyContent="space-between">
-            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('1'); setCalc(false); setSign(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">1</Text></Button>
-            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('2'); setCalc(false); setSign(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">2</Text></Button>
-            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('3'); setCalc(false); setSign(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">3</Text></Button>
-            {sign ? <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('-'); setCalc(false); setSign(false) }}><Text fontSize="70px" pb="15px" color="whiteAlpha.900">-</Text></Button> : <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display(''); setCalc(false) }}><Text fontSize="70px" pb="15px" color="whiteAlpha.900">-</Text></Button>}
+            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('1'); setCalc(false); setSign(true); setAnswerS(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">1</Text></Button>
+            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('2'); setCalc(false); setSign(true); setAnswerS(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">2</Text></Button>
+            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('3'); setCalc(false); setSign(true); setAnswerS(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">3</Text></Button>
+            {sign ? <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('-'); setCalc(false); setSign(false); setAnswerS(true) }}><Text fontSize="70px" pb="15px" color="whiteAlpha.900">-</Text></Button> : <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display(''); setCalc(false) }}><Text fontSize="70px" pb="15px" color="whiteAlpha.900">-</Text></Button>}
           </Box>
           <Box display="flex" w="350px" justifyContent="space-between">
-            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('0'); setCalc(false); setSign(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">0</Text></Button>
-            {sign ? <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('.'); setCalc(false); setSign(false) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">.</Text></Button> : <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display(''); setCalc(false) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">.</Text></Button>}
+            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('0'); setCalc(false); setSign(true); setAnswerS(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">0</Text></Button>
+            {sign ? <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('.'); setCalc(false); setSign(false); setAnswerS(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">.</Text></Button> : <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display(''); setCalc(false) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">.</Text></Button>}
             <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { setCalc(true); calculate() }}><Text fontSize="70px" pb="15px" color="whiteAlpha.900">=</Text></Button>
-            {sign ? <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('+'); setCalc(false); setSign(false) }}><Text fontSize="70px" pb="15px" color="whiteAlpha.900">+</Text></Button> : <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display(''); setCalc(false) }}><Text fontSize="70px" pb="15px" color="whiteAlpha.900">+</Text></Button>}
+            {sign ? <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display('+'); setCalc(false); setSign(false); setAnswerS(true) }}><Text fontSize="70px" pb="15px" color="whiteAlpha.900">+</Text></Button> : <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" onClick={() => { display(''); setCalc(false) }}><Text fontSize="70px" pb="15px" color="whiteAlpha.900">+</Text></Button>}
           </Box>
         </Box>
       </Box>
