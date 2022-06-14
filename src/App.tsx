@@ -2,9 +2,10 @@ import { Box, Button, Input, Text } from '@chakra-ui/react'
 import React, { useEffect, useMemo, useState } from 'react'
 
 export const App = () => {
-  const [expression, setExpression] = useState('0')
+  const [expression, setExpression] = useState(' ')
   const [answer, setAnswer] = useState(0)
   const [calc, setCalc] = useState(false)
+  let zero = ' '
 
   const display = (symbol: string) => {
     setExpression(prev => prev + symbol)
@@ -17,8 +18,12 @@ export const App = () => {
 
   const clear = () => {
     setCalc(false)
-    setExpression('0')
+    setExpression(' ')
     setAnswer(0)
+  }
+
+  if (expression === ' ') {
+    zero = '0'
   }
 
   console.log(calc)
@@ -56,6 +61,7 @@ export const App = () => {
                 justifyContent="flex-end"
                 textAlign="right"
                 mb="17px"
+                paddingRight="10px"
               >{answer}
               </Box>
               )
@@ -71,7 +77,8 @@ export const App = () => {
                 justifyContent="flex-end"
                 textAlign="right"
                 mb="17px"
-              >{expression}
+                paddingRight="10px"
+              >{zero}{expression}
               </Box>
               )}
         </Box>
@@ -102,7 +109,7 @@ export const App = () => {
           </Box>
         </Box>
       </Box>
-      <Button mt="370px" w="74px" h="74px" backgroundColor="red" color="whiteAlpha.900" onClick={() => clear()}>Reset</Button>
+      <Button mt="390px" w="74px" h="74px" backgroundColor="red" color="whiteAlpha.900" onClick={() => clear()}>Reset</Button>
     </Box>
   )
 }
