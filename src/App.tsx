@@ -20,7 +20,7 @@ export const App = () => {
   const clear = () => {
     setCalc(false)
     setExpression(' ')
-    setAnswer(0)
+    setAnswer('0')
   }
 
   if (expression === ' ') {
