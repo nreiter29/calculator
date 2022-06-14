@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 
 export const App = () => {
   const [expression, setExpression] = useState(' ')
-  const [answer, setAnswer] = useState('0')
+  const [answer, setAnswer] = useState(0)
   const [calc, setCalc] = useState(false)
   let zero = ' '
   let fontSize = '80px'
@@ -20,23 +20,23 @@ export const App = () => {
   const clear = () => {
     setCalc(false)
     setExpression(' ')
-    setAnswer('0')
+    setAnswer(0)
   }
 
   if (expression === ' ') {
     zero = '0'
   }
 
-  if (expression.length >= 8 || answer.length >= 8) {
+  if (expression.length >= 8 || answer >= 8) {
     fontSize = '60px'
   }
-  if (expression.length >= 11 || answer.length >= 11) {
+  if (expression.length >= 11 || answer >= 11) {
     fontSize = '40px'
   }
-  if (expression.length >= 15 || answer.length >= 15) {
+  if (expression.length >= 15 || answer >= 15) {
     fontSize = '30px'
   }
-  if (expression.length === 18 || answer.length === 18) {
+  if (expression.length === 18 || answer === 18) {
     alert('Max length reached')
     clear()
   }
@@ -77,7 +77,7 @@ export const App = () => {
                 textAlign="right"
                 mb="17px"
                 paddingRight="10px"
-              >{answer}
+              >{answer.toFixed(12)}
               </Box>
               )
             : (
