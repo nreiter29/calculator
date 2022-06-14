@@ -10,7 +10,6 @@ export const App = () => {
   const [calculateS, setCalculateS] = useState(false)
   let zero: any = ' '
   let fontSize = '80px'
-  let resetButton = '390px'
   const toFixedAnswer = answer.toFixed(2)
 
   const display = (symbol: string) => {
@@ -35,19 +34,16 @@ export const App = () => {
     zero = '0'
   }
 
-  if (expression.length >= 8 || answer.toString.length >= 8) {
+  if (expression.length >= 9 || answer.toString.length >= 9) {
     fontSize = '60px'
-    resetButton = '360px'
   }
-  if (expression.length >= 11 || answer.toString.length >= 11) {
+  if (expression.length >= 12 || answer.toString.length >= 12) {
     fontSize = '40px'
-    resetButton = '330px'
   }
-  if (expression.length >= 15 || answer.toString.length >= 15) {
+  if (expression.length >= 17 || answer.toString.length >= 17) {
     fontSize = '30px'
-    resetButton = '315px'
   }
-  if (expression.length === 18 || answer.toString.length === 18) {
+  if (expression.length === 22 || answer.toString.length === 22) {
     alert('Max length reached')
     clear()
   }
@@ -157,6 +153,8 @@ export const App = () => {
                 textAlign="right"
                 mb="17px"
                 paddingRight="10px"
+                h="122px"
+                alignItems="center"
               >{anzeige}
               </Box>
               )
@@ -173,6 +171,8 @@ export const App = () => {
                 textAlign="right"
                 mb="17px"
                 paddingRight="10px"
+                h="122px"
+                alignItems="center"
               >{zero}{expression}
               </Box>
               )}
@@ -204,7 +204,7 @@ export const App = () => {
           </Box>
         </Box>
       </Box>
-      <Button mt={resetButton} w="74px" h="74px" backgroundColor="red" color="whiteAlpha.900" _hover={{ backgroundColor: 'darkred' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => clear()}>Reset</Button>
+      <Button mt="390px" w="74px" h="74px" backgroundColor="red" color="whiteAlpha.900" _hover={{ backgroundColor: 'darkred' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => clear()}>Reset</Button>
     </Box>
   )
 }
