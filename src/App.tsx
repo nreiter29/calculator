@@ -3,9 +3,10 @@ import React, { useEffect, useMemo, useState } from 'react'
 
 export const App = () => {
   const [expression, setExpression] = useState(' ')
-  const [answer, setAnswer] = useState(0)
+  const [answer, setAnswer] = useState('0')
   const [calc, setCalc] = useState(false)
   let zero = ' '
+  let fontSize = '80px'
 
   const display = (symbol: string) => {
     setExpression(prev => prev + symbol)
@@ -24,6 +25,20 @@ export const App = () => {
 
   if (expression === ' ') {
     zero = '0'
+  }
+
+  if (expression.length >= 8 || answer.length >= 8) {
+    fontSize = '60px'
+  }
+  if (expression.length >= 11 || answer.length >= 11) {
+    fontSize = '40px'
+  }
+  if (expression.length >= 15 || answer.length >= 15) {
+    fontSize = '30px'
+  }
+  if (expression.length === 18 || answer.length === 18) {
+    alert('Max length reached')
+    clear()
   }
 
   console.log(calc)
@@ -55,7 +70,7 @@ export const App = () => {
                 borderColor="white"
                 rounded="md"
                 textColor="white"
-                fontSize="80px"
+                fontSize={fontSize}
                 w="350px"
                 display="flex"
                 justifyContent="flex-end"
@@ -71,7 +86,7 @@ export const App = () => {
                 borderColor="white"
                 rounded="md"
                 color="whiteAlpha.500"
-                fontSize="80px"
+                fontSize={fontSize}
                 w="350px"
                 display="flex"
                 justifyContent="flex-end"
