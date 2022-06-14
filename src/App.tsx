@@ -77,9 +77,9 @@ export const App = () => {
   const plus = () => {
     setExpression(' ')
     if (!number_test(answer)) {
-      display(`${answer.toString()}-`)
+      display(`${answer.toString()}+`)
     } else {
-      display(`${toFixedAnswer}-`)
+      display(`${toFixedAnswer}+`)
     }
     setCalculateS(false)
   }
