@@ -50,23 +50,34 @@ export const App = () => {
   return (
     <Box w="100vw" h="100vh" backgroundColor="gray.800" textAlign="center" display="flex" justifyContent="center" gap="17px">
       <Box display="flex" flexDirection="column">
-        <Box display="flex" h="auto" w="350px" mt="100px">
+        <Box display="flex" w="350px" mt="198px" ml="auto" mr="auto" h="52.5px">
           {calc
             ? (
               <Text
                 color="whiteAlpha.500"
-                position="absolute"
                 fontSize="35px"
                 top="195px"
-                ml="auto"
-                mr="auto"
                 w="350px"
+                display="flex"
+                justifyContent="flex-end"
+                paddingRight="10px"
               >{expression}
               </Text>
               )
-            : <Text color="white" position="absolute" fontSize="35px" top="195px" ml="auto" mr="auto" w="350px">{expression}</Text>}
+            : (
+              <Text
+                color="white"
+                fontSize="35px"
+                top="195px"
+                w="350px"
+                display="flex"
+                justifyContent="flex-end"
+                paddingRight="10px"
+              >{expression}
+              </Text>
+              )}
         </Box>
-        <Box pt="150px">
+        <Box>
           {calc
             ? (
               <Box
