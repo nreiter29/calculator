@@ -30,6 +30,10 @@ export const App = () => {
     setCalculateS(false)
   }
 
+  const deleteFunction = () => {
+    setExpression(prev => prev.slice(0, -1))
+  }
+
   if (expression === ' ') {
     zero = '0'
   }
@@ -177,6 +181,10 @@ export const App = () => {
               </Box>
               )}
         </Box>
+        <Box w="350px" display="flex" justifyContent="space-between">
+          <Button mb="15px" w="165px" h="74px" backgroundColor="red" color="whiteAlpha.900" _hover={{ backgroundColor: 'darkred' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => clear()}>Reset</Button>
+          <Button mb="15px" w="165px" h="74px" backgroundColor="red" color="whiteAlpha.900" _hover={{ backgroundColor: 'darkred' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => deleteFunction()}>Delete</Button>
+        </Box>
         <Box w="350px" ml="auto" mr="auto" display="flex" flexDir="column" h="350px" justifyContent="space-between">
           <Box display="flex" w="350px" justifyContent="space-between">
             <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display('7'); setCalc(false); setSign(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">7</Text></Button>
@@ -204,7 +212,6 @@ export const App = () => {
           </Box>
         </Box>
       </Box>
-      <Button mt="390px" w="74px" h="74px" backgroundColor="red" color="whiteAlpha.900" _hover={{ backgroundColor: 'darkred' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => clear()}>Reset</Button>
     </Box>
   )
 }
