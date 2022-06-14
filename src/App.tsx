@@ -8,6 +8,7 @@ export const App = () => {
   let zero = ' '
   let fontSize = '80px'
   let resetButton = '390px'
+  const toFixedAnswer = answer.toFixed(2)
 
   const display = (symbol: string) => {
     setExpression(prev => prev + symbol)
@@ -28,24 +29,36 @@ export const App = () => {
     zero = '0'
   }
 
-  if (expression.length >= 8 || answer >= 8) {
+  if (expression.length >= 8 || answer.toString.length >= 8) {
     fontSize = '60px'
     resetButton = '360px'
   }
-  if (expression.length >= 11 || answer >= 11) {
+  if (expression.length >= 11 || answer.toString.length >= 11) {
     fontSize = '40px'
     resetButton = '330px'
   }
-  if (expression.length >= 15 || answer >= 15) {
+  if (expression.length >= 15 || answer.toString.length >= 15) {
     fontSize = '30px'
     resetButton = '315px'
   }
-  if (expression.length === 18 || answer === 18) {
+  if (expression.length === 18 || answer.toString.length === 18) {
     alert('Max length reached')
     clear()
   }
 
-  console.log(calc)
+  function number_test (n: number) {
+    const result = (n - Math.floor(n)) !== 0
+
+    return result
+  }
+
+  let anzeige
+
+  if (number_test(answer)) {
+    anzeige = toFixedAnswer
+  } else {
+    anzeige = answer
+  }
 
   return (
     <Box w="100vw" h="100vh" backgroundColor="gray.800" textAlign="center" display="flex" justifyContent="center" gap="17px">
@@ -92,7 +105,7 @@ export const App = () => {
                 textAlign="right"
                 mb="17px"
                 paddingRight="10px"
-              >{answer.toFixed(6)}
+              >{anzeige}
               </Box>
               )
             : (
