@@ -160,68 +160,16 @@ export const App = () => {
       <Box display="flex" flexDirection="column">
         <Box display="flex" w="350px" mt="198px" ml="auto" mr="auto" h="52.5px">
           {calc
-            ? (
-              <Text
-                color="whiteAlpha.500"
-                fontSize="35px"
-                top="195px"
-                w="350px"
-                display="flex"
-                justifyContent="flex-end"
-                paddingRight="10px"
-              >{expression}
-              </Text>
-              )
-            : (
-              <Text
-                color="white"
-                fontSize="35px"
-                top="195px"
-                w="350px"
-                display="flex"
-                justifyContent="flex-end"
-                paddingRight="10px"
-              >{anzeige}
-              </Text>
-              )}
+            ? (<Text color="whiteAlpha.500" fontSize="35px" top="195px" w="350px" display="flex" justifyContent="flex-end" paddingRight="10px" >{expression}    </Text>)
+            : (<Text color="white" fontSize="35px" top="195px" w="350px" display="flex" justifyContent="flex-end" paddingRight="10px" >{anzeige}    </Text>)}
         </Box>
         <Box>
           {calc
             ? (
-              <Box
-                border="1px"
-                borderColor="white"
-                rounded="md"
-                textColor="white"
-                fontSize={fontSize}
-                w="350px"
-                display="flex"
-                justifyContent="flex-end"
-                textAlign="right"
-                mb="17px"
-                paddingRight="10px"
-                h="122px"
-                alignItems="center"
-              >{anzeige}
-              </Box>
+              <Box border="1px" borderColor="white" rounded="md" textColor="white" fontSize={fontSize} w="350px" display="flex" justifyContent="flex-end" textAlign="right" mb="17px" paddingRight="10px" h="122px" alignItems="center">{anzeige}</Box>
               )
             : (
-              <Box
-                border="1px"
-                borderColor="white"
-                rounded="md"
-                color="whiteAlpha.500"
-                fontSize={fontSize}
-                w="350px"
-                display="flex"
-                justifyContent="flex-end"
-                textAlign="right"
-                mb="17px"
-                paddingRight="10px"
-                h="122px"
-                alignItems="center"
-              >{zero}{expression}
-              </Box>
+              <Box border="1px" borderColor="white" rounded="md" color="whiteAlpha.500" fontSize={fontSize} w="350px" display="flex" justifyContent="flex-end" textAlign="right" mb="17px" paddingRight="10px" h="122px" alignItems="center">{zero}{expression}</Box>
               )}
         </Box>
         <Box w="350px" display="flex" justifyContent="space-between">
