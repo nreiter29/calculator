@@ -83,54 +83,18 @@ export const App = () => {
   } else {
     anzeige = answer
   }
-  const minus = () => {
+
+  const autoFunction = (sign: string) => {
     setExpression('')
     if (!number_test(answer)) {
-      display(`${answer.toString()}-`)
+      display(`${answer.toString()}${sign}`)
     } else {
-      display(`${toFixedAnswer}-`)
+      display(`${toFixedAnswer}${sign}`)
     }
     setCalculateS(false)
   }
 
-  const plus = () => {
-    setExpression('')
-    if (!number_test(answer)) {
-      display(`${answer.toString()}+`)
-    } else {
-      display(`${toFixedAnswer}+`)
-    }
-    setCalculateS(false)
-  }
-
-  const divide = () => {
-    setExpression('')
-    if (!number_test(answer)) {
-      display(`${answer.toString()}/`)
-    } else {
-      display(`${toFixedAnswer}/`)
-    } setCalculateS(false)
-  }
-
-  const multiply = () => {
-    setExpression('')
-    if (!number_test(answer)) {
-      display(`${answer.toString()}*`)
-    } else {
-      display(`${toFixedAnswer}*`)
-    } setCalculateS(false)
-  }
-
-  const dot = () => {
-    setExpression('')
-    if (!number_test(answer)) {
-      display(`${answer.toString()}.`)
-    } else {
-      display(`${toFixedAnswer}.`)
-    } setCalculateS(false)
-  }
-
-  function basicCalculationButtons (buttonValue: string, displayValue: string, buttonFunction: () => void, bgColor?: string, hoverColor?: string) {
+  function basicCalculationButtons (buttonValue: string, displayValue: string, buttonFunction: (value: string) => void, bgColor?: string, hoverColor?: string) {
     if (sign) {
       if (calculateS) {
         return (
@@ -141,7 +105,7 @@ export const App = () => {
             _hover={{ backgroundColor: hoverColor }}
             boxShadow="0 5px grey"
             _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }}
-            onClick={() => { display(displayValue); setCalc(false); setSign(false); buttonFunction() }}
+            onClick={() => { display(displayValue); setCalc(false); setSign(false); buttonFunction(displayValue) }}
           ><Text fontSize="70px" pb="20px" color="whiteAlpha.900">{buttonValue}</Text>
           </Button>
         )
@@ -264,26 +228,26 @@ export const App = () => {
             <Buttons value="7"/>
             <Buttons value="8"/>
             <Buttons value="9"/>
-            {basicCalculationButtons('x', '*', multiply, 'blue.600', 'blue')}
+            {basicCalculationButtons('x', '*', autoFunction, 'blue.600', 'blue')}
           </Box>
           <Box display="flex" w="350px" justifyContent="space-between">
             <Buttons value="4"/>
             <Buttons value="5"/>
             <Buttons value="6"/>
-            {basicCalculationButtons('/', '/', divide, 'whiteAlpha.300', 'whiteAlpha.100')}
+            {basicCalculationButtons('/', '/', autoFunction, 'whiteAlpha.300', 'whiteAlpha.100')}
           </Box>
           <Box display="flex" w="350px" justifyContent="space-between">
             <Buttons value="1"/>
             <Buttons value="2"/>
             <Buttons value="3"/>
-            {basicCalculationButtons('-', '-', minus, 'whiteAlpha.300', 'whiteAlpha.100')}
+            {basicCalculationButtons('-', '-', autoFunction, 'whiteAlpha.300', 'whiteAlpha.100')}
 
           </Box>
           <Box display="flex" w="350px" justifyContent="space-between">
             <Buttons value="0"/>
-            {basicCalculationButtons('.', '.', dot, 'whiteAlpha.300', 'whiteAlpha.100')}
+            {basicCalculationButtons('.', '.', autoFunction, 'whiteAlpha.300', 'whiteAlpha.100')}
             <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { setCalc(true); calculate(); setCalculateS(true) }}><Text fontSize="70px" pb="15px" color="whiteAlpha.900">=</Text></Button>
-            {basicCalculationButtons('+', '+', plus, 'whiteAlpha.300', 'whiteAlpha.100')}
+            {basicCalculationButtons('+', '+', autoFunction, 'whiteAlpha.300', 'whiteAlpha.100')}
           </Box>
         </Box>
       </Box>
