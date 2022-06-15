@@ -3,16 +3,30 @@ import { transform } from 'framer-motion'
 import React, { useEffect, useMemo, useState } from 'react'
 
 export const App = () => {
-  const [expression, setExpression] = useState(' ')
+  const Buttons: React.FC<{ value: string }> = ({ value }) => {
+    return (
+      <Button
+        w="75px"
+        h="75px"
+        backgroundColor="whiteAlpha.300"
+        _hover={{ backgroundColor: 'whiteAlpha.100' }}
+        boxShadow="0 5px grey"
+        _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }}
+        onClick={() => { display(value); setCalc(false); setSign(true) }}
+      ><Text fontSize="70px" pb="5px" color="whiteAlpha.900">{value}</Text>
+      </Button>
+    )
+  }
+  const [expression, setExpression] = useState('')
   const [answer, setAnswer] = useState(0)
   const [calc, setCalc] = useState(false)
   const [sign, setSign] = useState(false)
   const [calculateS, setCalculateS] = useState(false)
-  let zero: any = ' '
+  let zero = ''
   let fontSize = '80px'
   const toFixedAnswer = answer.toFixed(2)
 
-  const display = (symbol: string) => {
+  function display (symbol: string) {
     setExpression(prev => prev + symbol)
   }
 
@@ -23,7 +37,7 @@ export const App = () => {
 
   const clear = () => {
     setCalc(false)
-    setExpression(' ')
+    setExpression('')
     setAnswer(0)
     setCalc(false)
     setSign(false)
@@ -31,10 +45,14 @@ export const App = () => {
   }
 
   const deleteFunction = () => {
-    setExpression(prev => prev.slice(0, -1))
+    if (expression.length > 1) {
+      setExpression(prev => prev.slice(0, -1))
+    } else {
+      setExpression('')
+    }
   }
 
-  if (expression === ' ') {
+  if (expression === '') {
     zero = '0'
   }
 
@@ -66,7 +84,7 @@ export const App = () => {
     anzeige = answer
   }
   const minus = () => {
-    setExpression(' ')
+    setExpression('')
     if (!number_test(answer)) {
       display(`${answer.toString()}-`)
     } else {
@@ -76,7 +94,7 @@ export const App = () => {
   }
 
   const plus = () => {
-    setExpression(' ')
+    setExpression('')
     if (!number_test(answer)) {
       display(`${answer.toString()}+`)
     } else {
@@ -86,7 +104,7 @@ export const App = () => {
   }
 
   const divide = () => {
-    setExpression(' ')
+    setExpression('')
     if (!number_test(answer)) {
       display(`${answer.toString()}/`)
     } else {
@@ -95,7 +113,7 @@ export const App = () => {
   }
 
   const multiply = () => {
-    setExpression(' ')
+    setExpression('')
     if (!number_test(answer)) {
       display(`${answer.toString()}*`)
     } else {
@@ -104,12 +122,68 @@ export const App = () => {
   }
 
   const dot = () => {
-    setExpression(' ')
+    setExpression('')
     if (!number_test(answer)) {
       display(`${answer.toString()}.`)
     } else {
       display(`${toFixedAnswer}.`)
     } setCalculateS(false)
+  }
+
+  function basicCalculationButtons (buttonValue: string, displayValue: string, buttonFunction: () => void, bgColor?: string, hoverColor?: string) {
+    if (sign) {
+      if (calculateS) {
+        return (
+          <Button
+            w="75px"
+            h="75px"
+            backgroundColor={bgColor}
+            _hover={{ backgroundColor: hoverColor }}
+            boxShadow="0 5px grey"
+            _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }}
+            onClick={() => { display(displayValue); setCalc(false); setSign(false); buttonFunction() }}
+          ><Text fontSize="70px" pb="20px" color="whiteAlpha.900">{buttonValue}</Text>
+          </Button>
+        )
+      }
+      return (
+        <Button
+          w="75px"
+          h="75px"
+          backgroundColor={bgColor}
+          _hover={{ backgroundColor: hoverColor }}
+          boxShadow="0 5px grey"
+          _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }}
+          onClick={() => { display(displayValue); setCalc(false); setSign(false) }}
+        ><Text fontSize="70px" pb="20px" color="whiteAlpha.900">{buttonValue}</Text>
+        </Button>
+      )
+    }
+    if (calculateS) {
+      return (
+        <Button
+          w="75px"
+          h="75px"
+          backgroundColor={bgColor}
+          _hover={{ backgroundColor: hoverColor }}
+          boxShadow="0 5px grey"
+          _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }}
+          onClick={() => { display(''); setCalc(false) }}
+        ><Text fontSize="70px" pb="20px" color="whiteAlpha.900">{buttonValue}</Text>
+        </Button>
+      )
+    } return (
+      <Button
+        w="75px"
+        h="75px"
+        backgroundColor={bgColor}
+        _hover={{ backgroundColor: hoverColor }}
+        boxShadow="0 5px grey"
+        _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }}
+        onClick={() => { display(''); setCalc(false) }}
+      ><Text fontSize="70px" pb="20px" color="whiteAlpha.900">{buttonValue}</Text>
+      </Button>
+    )
   }
 
   return (
@@ -187,28 +261,29 @@ export const App = () => {
         </Box>
         <Box w="350px" ml="auto" mr="auto" display="flex" flexDir="column" h="350px" justifyContent="space-between">
           <Box display="flex" w="350px" justifyContent="space-between">
-            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display('7'); setCalc(false); setSign(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">7</Text></Button>
-            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display('8'); setCalc(false); setSign(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">8</Text></Button>
-            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display('9'); setCalc(false); setSign(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">9</Text></Button>
-            {sign ? calculateS ? <Button w="75px" h="75px" backgroundColor="blue.600" _hover={{ backgroundColor: 'blue' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display('*'); setCalc(false); setSign(false); multiply() }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">x</Text></Button> : <Button w="75px" h="75px" backgroundColor="blue.600" _hover={{ backgroundColor: 'blue' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display('*'); setCalc(false); setSign(false) }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">x</Text></Button> : calculateS ? <Button w="75px" h="75px" backgroundColor="blue.600" _hover={{ backgroundColor: 'blue' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display(''); setCalc(false) }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">x</Text></Button> : <Button w="75px" h="75px" backgroundColor="blue.600" _hover={{ backgroundColor: 'blue' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display(''); setCalc(false) }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">x</Text></Button>}
+            <Buttons value="7"/>
+            <Buttons value="8"/>
+            <Buttons value="9"/>
+            {basicCalculationButtons('x', '*', multiply, 'blue.600', 'blue')}
           </Box>
           <Box display="flex" w="350px" justifyContent="space-between">
-            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display('4'); setCalc(false); setSign(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">4</Text></Button>
-            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display('5'); setCalc(false); setSign(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">5</Text></Button>
-            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display('6'); setCalc(false); setSign(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">6</Text></Button>
-            {sign ? calculateS ? <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display('/'); setCalc(false); setSign(false); divide() }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">/</Text></Button> : <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display('/'); setCalc(false); setSign(false) }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">/</Text></Button> : calculateS ? <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display(''); setCalc(false) }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">/</Text></Button> : <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display(''); setCalc(false) }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">/</Text></Button>}
+            <Buttons value="4"/>
+            <Buttons value="5"/>
+            <Buttons value="6"/>
+            {basicCalculationButtons('/', '/', divide, 'whiteAlpha.300', 'whiteAlpha.100')}
           </Box>
           <Box display="flex" w="350px" justifyContent="space-between">
-            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display('1'); setCalc(false); setSign(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">1</Text></Button>
-            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display('2'); setCalc(false); setSign(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">2</Text></Button>
-            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display('3'); setCalc(false); setSign(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">3</Text></Button>
-            {sign ? calculateS ? <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display('-'); setCalc(false); setSign(false); minus() }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">-</Text></Button> : <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display('-'); setCalc(false); setSign(false) }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">-</Text></Button> : calculateS ? <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display(''); setCalc(false) }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">-</Text></Button> : <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display(''); setCalc(false) }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">-</Text></Button>}
+            <Buttons value="1"/>
+            <Buttons value="2"/>
+            <Buttons value="3"/>
+            {basicCalculationButtons('-', '-', minus, 'whiteAlpha.300', 'whiteAlpha.100')}
+
           </Box>
           <Box display="flex" w="350px" justifyContent="space-between">
-            <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display('0'); setCalc(false); setSign(true) }}><Text fontSize="70px" pb="5px" color="whiteAlpha.900">0</Text></Button>
-            {sign ? calculateS ? <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display('.'); setCalc(false); setSign(false); dot() }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">.</Text></Button> : <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display('.'); setCalc(false); setSign(false) }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">.</Text></Button> : calculateS ? <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display(''); setCalc(false) }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">.</Text></Button> : <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display(''); setCalc(false) }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">.</Text></Button>}
+            <Buttons value="0"/>
+            {basicCalculationButtons('.', '.', dot, 'whiteAlpha.300', 'whiteAlpha.100')}
             <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { setCalc(true); calculate(); setCalculateS(true) }}><Text fontSize="70px" pb="15px" color="whiteAlpha.900">=</Text></Button>
-            {sign ? calculateS ? <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display('+'); setCalc(false); setSign(false); plus() }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">+</Text></Button> : <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display('+'); setCalc(false); setSign(false) }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">+</Text></Button> : calculateS ? <Button w="75px" h="75px" backgroundColor="whiteAlpha.300" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => { display(''); setCalc(false) }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">+</Text></Button> : <Button w="75px" h="75px" _hover={{ backgroundColor: 'whiteAlpha.100' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} backgroundColor="whiteAlpha.300" onClick={() => { display(''); setCalc(false) }}><Text fontSize="70px" pb="20px" color="whiteAlpha.900">+</Text></Button>}
+            {basicCalculationButtons('+', '+', plus, 'whiteAlpha.300', 'whiteAlpha.100')}
           </Box>
         </Box>
       </Box>
