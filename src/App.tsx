@@ -1,6 +1,5 @@
-import { Box, Button, Input, Text } from '@chakra-ui/react'
-import { transform } from 'framer-motion'
-import React, { useEffect, useMemo, useState } from 'react'
+import { Box, Button, Text } from '@chakra-ui/react'
+import React, { useState } from 'react'
 
 export const App = () => {
   const Buttons: React.FC<{ value: string }> = ({ value }) => {
@@ -150,6 +149,12 @@ export const App = () => {
     )
   }
 
+  function resetOrDelete (resetOrDeleteFunction: () => void, text: string) {
+    return (
+      <Button mb="15px" w="165px" h="74px" backgroundColor="red" color="whiteAlpha.900" _hover={{ backgroundColor: 'darkred' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => resetOrDeleteFunction()}>{text}</Button>
+    )
+  }
+
   return (
     <Box w="100vw" h="100vh" backgroundColor="gray.800" textAlign="center" display="flex" justifyContent="center" gap="17px">
       <Box display="flex" flexDirection="column">
@@ -220,8 +225,8 @@ export const App = () => {
               )}
         </Box>
         <Box w="350px" display="flex" justifyContent="space-between">
-          <Button mb="15px" w="165px" h="74px" backgroundColor="red" color="whiteAlpha.900" _hover={{ backgroundColor: 'darkred' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => clear()}>Reset</Button>
-          <Button mb="15px" w="165px" h="74px" backgroundColor="red" color="whiteAlpha.900" _hover={{ backgroundColor: 'darkred' }} boxShadow="0 5px grey" _active={{ boxShadow: '0 5px white', transform: 'translateY(4px)' }} onClick={() => deleteFunction()}>Delete</Button>
+          {resetOrDelete(deleteFunction, 'Delete')}
+          {resetOrDelete(clear, 'Reset')}
         </Box>
         <Box w="350px" ml="auto" mr="auto" display="flex" flexDir="column" h="350px" justifyContent="space-between">
           <Box display="flex" w="350px" justifyContent="space-between">
